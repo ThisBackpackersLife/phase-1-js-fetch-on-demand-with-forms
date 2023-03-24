@@ -1,23 +1,23 @@
 const init = () => {
     const inputForm = document.querySelector("form");
 
-    inputForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const input = document.querySelector("input#searchByID");
+    inputForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const userInput = document.getElementById("searchByID");
 
-        fetch(`http://localhost:3000/movies/${input.value}`)
+        console.log(userInput.value);
+
+        fetch(`http://localhost:3000/movies/${userInput.value}`)
         .then((response) => response.json())
-        .then ((data) => {
+        .then((data) => {
+            
             const title = document.querySelector("section#movieDetails h4");
-            const summary = document.querySelector("section#movieDetails p");
+            title.textContent = data.title;
 
-            title.innerText = data.title;
-            summary.innerText = data.summary;
-        })
+            const summary = document.querySelector("section#movieDetails p");
+            summary.textContent = data.summary;
+        });
     });
-  
 };
 
-document.addEventListener('DOMContentLoaded', init);
-
-
+document.addEventListener("DOMContentLoaded", init);
